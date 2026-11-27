@@ -45,7 +45,7 @@ from models import get_ali_clients
 client, embedding_model = get_ali_clients()
 
 # 初始化文档加载器列表
-loader = TextLoader("./deepseek百度百科.txt")
+loader = TextLoader("./deepseek百度百科.txt", encoding="UTF-8")
 docs = loader.load()
 
 # 初始化递归文本分割器（设置块大小和重叠）
