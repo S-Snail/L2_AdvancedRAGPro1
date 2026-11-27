@@ -1,5 +1,25 @@
 """
-    4、元数据索引
+    # 1、预检索 - 索引优化
+
+    1.4、元数据索引
+
+    元数据索引-痛点分析：
+        在企业复杂的知识密集型应用中，可能会面临几百个不同来源与类型的知识文档。如果只是简单地依赖传统的文本分割与top-k检索，就会产生精度不
+    足、知识相互干扰等问题，从而导致效果不佳。想象一下，你想在一个医学文献数据库中查找关于“糖尿病”的资料，但数据库中也充斥着大量关于其他糖尿
+    病并发症的信息。
+        一个重要的优化方法是在大文档集下“分层”过滤与检索。比如元数据索引
+
+        元数据是对文档的一种属性描述，假设我们使用一个存储了大量科技博客文章的向量数据库。每篇文章都关联了以下标签：
+        topic: 人工智能, 区块链, 云计算, 大数据
+        author: 作者A, 作者B, 作者C
+        year: 2022, 2023, 2024
+
+    元数据-基本思路：
+    1、定义元数据标签
+    2、通过标签先对文档进行过滤
+    3、结合向量检索进一步定位到最相关的前 K个知识块
+
+    LangChain 中使用SelfQueryRetriever自查询检索器实现
 """
 from langchain_chroma import Chroma
 from langchain_classic.chains.query_constructor.base import get_query_constructor_prompt, StructuredQueryOutputParser
